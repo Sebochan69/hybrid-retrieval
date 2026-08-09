@@ -54,3 +54,10 @@
 - Verified: `python3 scripts/validate_data.py` passed with 18 documents, 54 chunks, and 44 owner-approved `golden-v2` queries.
 - Completed: HRT-002 is closed; no retrieval or answer-generation implementation was added.
 - Next: start HRT-003 reproducible environment setup.
+
+## 2026-08-08 — HRT-002 study guide documented
+
+- Goal: make the ticket’s reasoning reusable for future study sessions and interview preparation.
+- Changed: added the HRT-002 study order, examples, validator command, Git diff command, and review questions to the GitHub documentation index and review record.
+- Verified: documentation links to the frozen `golden-v2` data contract and HRT-002 evidence.
+- Next: study q001, q029, and q025 before beginning HRT-003.

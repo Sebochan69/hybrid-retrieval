@@ -46,3 +46,51 @@ Checks covered:
 ## Result
 
 HRT-002 is closed. The next ticket is HRT-003: create the reproducible Python dependency and model setup.
+
+## Study order
+
+HRT-002 is a data-contract and evaluation-design lesson, not a retrieval implementation lesson.
+
+### 1. Learn the data contract
+
+Read these files in order:
+
+1. `data/README.md`
+2. `docs/EVALUATION.md`
+3. `scripts/validate_data.py`
+
+Key concepts:
+
+- **Relevant chunks:** useful retrieval results, graded `0`–`3`.
+- **Required chunks:** minimum evidence needed to allow an answer.
+- **Claims/evidence:** every factual claim must cite supporting chunks.
+- **Distractors:** related text that must not be treated as an answer.
+- **Original query:** immutable baseline.
+- **Rewrite:** an experiment only; it cannot change the original intent.
+- **Dev/test split:** use `dev` for decisions; do not tune against `test`.
+- **Unanswerable query:** empty required evidence and mandatory abstention.
+
+### 2. Trace three examples
+
+Study these rows in `data/golden/golden_queries.jsonl`:
+
+- **q001:** simple lexical lookup; study grade `3`, grade `1`, required evidence, and claim citations.
+- **q029:** multi-hop retrieval; study why all three evidence chunks are required after the reference answer includes the at-least-once claim.
+- **q025:** unanswerable question; study why a related chunk is only a distractor and must not make the system answer.
+
+Then inspect **q018** and **q030** to see how unsupported wording was corrected.
+
+### 3. Inspect the Git change and validator
+
+```bash
+cd /mnt/d/PROJECTS/hybrid-retrieval
+git show d456a58 -- data/golden/golden_queries.jsonl
+python3 scripts/validate_data.py
+```
+
+Before moving to HRT-003, answer:
+
+1. Why is `required_chunks` different from `relevant_chunks`?
+2. Why must q025 abstain even though it has a distractor?
+3. Why would q026's original rewrite be an invalid experiment?
+4. Why must the test split remain untouched?
