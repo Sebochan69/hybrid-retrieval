@@ -1,0 +1,12 @@
+# Local environments and caches
+.venv/
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+
+# Generated indexes, runs, and model artifacts
+artifacts/
+*.db
+*.sqlite
+*.sqlite3
+graphify-out/
