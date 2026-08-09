@@ -38,3 +38,11 @@
 - Changed: added `docs/plans/active/002-study-oriented-ticket-backlog.md` with ordered tickets covering the full retrieval system, evaluation, evidence gating, CLI use, and GitHub quality.
 - Verified: project data validator still passes; no application implementation has been added.
 - Next: publish the initial repository state, then start HRT-002 and HRT-003 before implementation.
+
+## 2026-08-08 — HRT-002 assistant pre-review
+
+- Goal: review the draft golden set before human approval.
+- Changed: added `docs/reviews/HRT-002-golden-set-review.md` with source-backed findings and owner decisions; no query labels were changed.
+- Verified: all 44 rows cross-reference valid corpus chunks; structural validation passed; eight rows need owner decisions before freezing.
+- Blocked: human approval is still required; HRT-002 remains open.
+- Next: owner decides the flagged q005, q010, q018, q026, q029, q030, q031, and q036 changes.

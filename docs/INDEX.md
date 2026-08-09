@@ -9,6 +9,7 @@
 - [`BUILD_LOG.md`](BUILD_LOG.md) — concise chronological project history
 - [`decisions/`](decisions/) — durable design decisions
 - [`plans/`](plans/) — active and completed execution plans
+- [`reviews/`](reviews/) — ticket review evidence and open owner decisions
 - [`system-design/TOPICS.md`](system-design/TOPICS.md) — design topic register
 - [`../data/README.md`](../data/README.md) — corpus and golden-query data contract
 - `graphify-out/` — generated repository map, when implementation exists
