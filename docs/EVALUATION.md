@@ -2,7 +2,7 @@
 
 ## Dataset
 
-The first golden-set draft is `data/golden/golden_queries.jsonl`. It contains assistant-drafted qrels and claim labels, not human-approved or LLM-judge labels. The project owner must review it before the benchmark is frozen. The development split may be used to choose fixed implementation details; the test split remains held out.
+The frozen golden set is `data/golden/golden_queries.jsonl` (`golden-v2`). It contains project-owner-approved qrels and claim labels; no LLM judge is trusted yet. The development split may be used to choose fixed implementation details; the test split remains held out.
 
 Each query has:
 

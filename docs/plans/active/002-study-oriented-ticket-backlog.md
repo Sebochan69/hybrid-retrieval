@@ -23,7 +23,7 @@ Every ticket answers: **why**, **when**, **what**, **how**, **who**, dependencie
 
 ### HRT-001 — Repository and GitHub foundation
 
-- **Status:** partial; the project contract, README, ADRs, plans, and `.gitignore` exist. No commit exists yet.
+- **Status:** complete; the project contract, README, ADRs, plans, `.gitignore`, and initial public commit exist.
 - **Why:** A fresh reader needs to understand the purpose, boundaries, decisions, and verification path.
 - **When:** First.
 - **What:** Preserve the current project contract and make the repository’s first clean, reviewable commit.
@@ -34,7 +34,7 @@ Every ticket answers: **why**, **when**, **what**, **how**, **who**, dependencie
 
 ### HRT-002 — Review and freeze the golden set
 
-- **Status:** draft; 44 queries and the validator exist, but human review is pending.
+- **Status:** complete; the owner-approved `golden-v2` set and stronger validator are committed.
 - **Why:** Assistant-drafted labels cannot be treated as ground truth for a benchmark.
 - **When:** Before retrieval quality is reported.
 - **What:** Review qrels, claims, rewrites, answerability, and abstention labels while preserving the dev/test split.
@@ -202,7 +202,7 @@ Every ticket answers: **why**, **when**, **what**, **how**, **who**, dependencie
 Start with:
 
 ```text
-HRT-002 → HRT-003 → HRT-004 → HRT-005 → HRT-006
+HRT-003 → HRT-004 → HRT-005 → HRT-006
 ```
 
 Stop after the lexical baseline and study it before adding dense retrieval. Then continue through fusion, reranking, evaluation, evidence gating, and finally answer generation.

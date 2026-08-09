@@ -1,4 +1,4 @@
-"""Validate the synthetic corpus and golden-query draft schema."""
+"""Validate the synthetic corpus and golden-query schema."""
 
 from __future__ import annotations
 
@@ -51,6 +51,11 @@ def load_queries(chunk_ids: set[str]) -> list[dict]:
     assert sum(row["split"] == "test" for row in rows) == 16
     assert sum(row["answerability"] == "answerable" for row in rows) == 32
     assert sum(row["answerability"] == "unanswerable" for row in rows) == 12
+    label_states = {
+        (row["label"]["labeler"], row["label"]["status"], row["label"]["version"])
+        for row in rows
+    }
+    assert len(label_states) == 1, f"mixed label states: {label_states}"
 
     for row in rows:
         assert row["original_query"].strip()
@@ -58,11 +63,19 @@ def load_queries(chunk_ids: set[str]) -> list[dict]:
         for rewrite in row["rewrite_candidates"]:
             assert rewrite["text"].strip()
             assert rewrite["intent_preserved"] is True
+        relevant = {
+            item["chunk_id"]: item["grade"]
+            for item in row.get("relevant_chunks", [])
+        }
+        assert len(relevant) == len(row.get("relevant_chunks", [])), "duplicate relevant chunk"
         for item in row.get("relevant_chunks", []) + row.get("distractor_chunks", []):
             assert item["chunk_id"] in chunk_ids, item["chunk_id"]
             assert item["grade"] in {0, 1, 2, 3}
+        for item in row.get("distractor_chunks", []):
+            assert item["grade"] == 1, "distractors must be grade 1"
         for chunk_id in row["required_chunks"]:
             assert chunk_id in chunk_ids, chunk_id
+            assert relevant.get(chunk_id, -1) >= 2, f"required chunk is not relevant: {chunk_id}"
         if row["answerability"] == "answerable":
             assert row["expected_abstention"] is False
             assert row["required_chunks"]
@@ -70,15 +83,19 @@ def load_queries(chunk_ids: set[str]) -> list[dict]:
             assert row["claims"]
             for claim in row["claims"]:
                 assert claim["evidence"]
-                assert set(claim["evidence"]).issubset(chunk_ids)
+                assert set(claim["evidence"]).issubset(relevant)
         else:
             assert row["expected_abstention"] is True
             assert row["required_chunks"] == []
             assert row["reference_answer"] is None
             assert row["claims"] == []
             assert row["abstention_reason"]
-        assert row["label"]["labeler"] == "assistant-draft"
-        assert row["label"]["status"] == "pending-human-review"
+        labeler = row["label"]["labeler"]
+        status = row["label"]["status"]
+        assert (labeler, status) in {
+            ("assistant-draft", "pending-human-review"),
+            ("project-owner", "human-approved"),
+        }
     return rows
 
 

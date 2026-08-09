@@ -46,3 +46,11 @@
 - Verified: all 44 rows cross-reference valid corpus chunks; structural validation passed; eight rows need owner decisions before freezing.
 - Blocked: human approval is still required; HRT-002 remains open.
 - Next: owner decides the flagged q005, q010, q018, q026, q029, q030, q031, and q036 changes.
+
+## 2026-08-08 — HRT-002 golden set frozen
+
+- Goal: apply the approved review corrections and freeze the benchmark labels.
+- Changed: corrected query wording, rewrite scope, required evidence, and the golden-set metadata; strengthened `scripts/validate_data.py` to enforce evidence consistency.
+- Verified: `python3 scripts/validate_data.py` passed with 18 documents, 54 chunks, and 44 owner-approved `golden-v2` queries.
+- Completed: HRT-002 is closed; no retrieval or answer-generation implementation was added.
+- Next: start HRT-003 reproducible environment setup.

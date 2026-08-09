@@ -10,7 +10,7 @@ PDF extraction is intentionally not represented in this first corpus. It is a se
 
 ## Golden queries
 
-`golden/golden_queries.jsonl` is JSON Lines: one assistant-drafted object per query. The schema is intentionally explicit. The project owner must review the qrels, claims, and abstention labels before this becomes the frozen human-labeled set:
+`golden/golden_queries.jsonl` is JSON Lines: one owner-approved object per query. The schema is intentionally explicit. The project owner reviewed the qrels, claims, and abstention labels; this is now the frozen human-labeled set `golden-v2`:
 
 - `query_id`: stable ID;
 - `split`: `dev` or `test`;
@@ -24,7 +24,7 @@ PDF extraction is intentionally not represented in this first corpus. It is a se
 - `abstention_reason` for unanswerable queries;
 - `label`: provenance and status of the human labels.
 
-The draft set has 44 queries: 28 development and 16 held-out test queries. It contains 32 answerable and 12 intentionally unanswerable queries. A draft reference answer is not a claim that a future generated answer is correct; it becomes the evaluation reference only after human review.
+The frozen set has 44 queries: 28 development and 16 held-out test queries. It contains 32 answerable and 12 intentionally unanswerable queries. A reference answer is not a claim that a future generated answer is correct; it is the evaluation reference for the owner-approved `golden-v2` set.
 
 ## Labeling rules
 
@@ -32,4 +32,4 @@ The draft set has 44 queries: 28 development and 16 held-out test queries. It co
 2. A rewrite may be marked `intent_preserved: false` if it adds an entity, changes polarity, narrows scope, or loses a required condition. Such a rewrite must not be treated as a valid improvement.
 3. Mark every atomic reference claim with the chunk(s) that support it.
 4. For unanswerable queries, do not assign a nearby chunk as relevant merely because it shares vocabulary; use an empty `required_chunks` list and require abstention.
-5. The current rows are assistant drafts, not human labels. The project owner must review and approve them before any LLM judge is trusted.
+5. The current rows are owner-approved human labels for `golden-v2`. No LLM judge is trusted yet; any judge still requires a calibrated human-labeled sample.
